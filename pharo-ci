@@ -5,8 +5,11 @@ readonly INSTALLATION_DIRECTORY=/opt/smalltalkci/
 readonly DEFAULT_BRANCH=${INPUT_SMALLTALKCI_BRANCH:-master}
 readonly DEFAULT_SOURCE=${INPUT_SMALLTALKCI_REPO:-hpi-swa/smalltalkCI}
 
-echo "::group::Downloading and extracting smalltalkCI"
+echo "::group::Adding workspace as safe directory in git"
+git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+echo "::endgroup::"
 
+echo "::group::Downloading and extracting smalltalkCI"
 curl \
   --location "https://github.com/${DEFAULT_SOURCE}/archive/${DEFAULT_BRANCH}.tar.gz" \
   --output /tmp/smalltalkCI.tar.gz
@@ -16,8 +19,6 @@ echo "::endgroup::"
 echo "::group::Running smalltalkCI"
 
 readonly SMALLTALKCI_SPEC=${INPUT_SPEC:-.smalltalk.ston}
-
-git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
 "${INSTALLATION_DIRECTORY}/run.sh" \
   -s Pharo64-10 \

@@ -8,6 +8,7 @@ RUN  apt update \
   ;
 RUN mkdir -p /opt/smalltalkci \
   && chown pharo:users /opt/smalltalkci -R \
+  && chmod +w /opt/smalltalkci \
   ;
 
 USER pharo
