@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Load code and run tests
-        uses: ba-st-actions/pharo-ci@v12
+        uses: ba-st-actions/pharo-ci@v13
         with:
           spec: '.smalltalkci/unit-tests.ston'
 ```
@@ -29,6 +29,7 @@ jobs:
 - `v10` supports Pharo 10
 - `v11` supports Pharo 11
 - `v12` supports Pharo 12
+- `v13` supports Pharo 13
 
 When running, the workflow will map the `{GITHUB_WORKSPACE}` directory of the
 runner inside the container.
@@ -49,7 +50,7 @@ docker run --name pharo-ci --rm \
   -v {{repo_path}}:/workspace \
   -e GITHUB_WORKSPACE=/workspace \
   -e INPUT_SPEC=.smalltalkci/.unit-tests.ston \
-  ghcr.io/ba-st-actions/pharo-ci:v12
+  ghcr.io/ba-st-actions/pharo-ci:v13
 ```
 
 replacing `{{repo_path}}` with the path of the repo under test in the local filesystem
