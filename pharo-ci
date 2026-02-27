@@ -5,10 +5,6 @@ readonly INSTALLATION_DIRECTORY=/opt/smalltalkci/
 readonly DEFAULT_BRANCH=${INPUT_SMALLTALKCI_BRANCH:-master}
 readonly DEFAULT_SOURCE=${INPUT_SMALLTALKCI_REPO:-hpi-swa/smalltalkCI}
 
-echo "::group::Adding workspace as safe directory in git"
-git config --global --add safe.directory "${GITHUB_WORKSPACE}"
-echo "::endgroup::"
-
 echo "::group::Downloading and extracting smalltalkCI"
 curl \
   --location "https://github.com/${DEFAULT_SOURCE}/archive/${DEFAULT_BRANCH}.tar.gz" \

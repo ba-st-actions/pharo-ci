@@ -19,6 +19,9 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    # This tells Git to treat the workspace as safe without writing to a file
+    GIT_CONFIG_PARAMETERS: "'safe.directory=${{ github.workspace }}'"
   args:
     - ${{ inputs.smalltalkci_branch}}
     - ${{ inputs.smalltalkci_repo}}
