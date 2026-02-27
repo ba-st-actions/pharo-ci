@@ -17,6 +17,8 @@ echo "::group::Running smalltalkCI"
 
 readonly SMALLTALKCI_SPEC=${INPUT_SPEC:-.smalltalk.ston}
 
+git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+
 "${INSTALLATION_DIRECTORY}/run.sh" \
   -s Pharo64-10 \
   --image /opt/pharo/Pharo.image \
