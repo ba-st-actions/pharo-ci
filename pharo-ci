@@ -12,15 +12,22 @@ curl \
 tar -xzvf /tmp/smalltalkCI.tar.gz -C ${INSTALLATION_DIRECTORY} --strip-components=1
 echo "::endgroup::"
 
-echo "::group::Running smalltalkCI"
-
 readonly SMALLTALKCI_SPEC=${INPUT_SPEC:-.smalltalk.ston}
+readonly SMALLTALKCI_SPEC_FULL_PATH="${GITHUB_WORKSPACE}/${SMALLTALKCI_SPEC}"
+readonly COVERAGE_PATH="$(dirname "${SMALLTALKCI_SPEC_FULL_PATH}")/coverage"
+
+echo "::group::Preparing coverage directory"
+mkdir -p "${COVERAGE_PATH}"
+chmod -R a+rwx "${COVERAGE_PATH}"
+echo "::endgroup::"
+
+echo "::group::Running smalltalkCI"
 
 "${INSTALLATION_DIRECTORY}/run.sh" \
   -s Pharo64-10 \
   --image /opt/pharo/Pharo.image \
   --vm /opt/pharo/pharo-vm \
-  "${GITHUB_WORKSPACE}/${SMALLTALKCI_SPEC}"
+  "${SMALLTALKCI_SPEC_FULL_PATH}"
 
 echo "::endgroup::"
 
