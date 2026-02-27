@@ -11,7 +11,6 @@ RUN mkdir -p /opt/smalltalkci \
   && chmod +w /opt/smalltalkci \
   ;
 
-USER pharo
 COPY --chown=pharo:users pharo-ci /opt/pharo/pharo-ci
 
 ENTRYPOINT [ "/opt/pharo/pharo-ci" ]
