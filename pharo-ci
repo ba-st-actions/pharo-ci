@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+readonly INSTALLATION_DIRECTORY=/opt/smalltalkci/
+readonly DEFAULT_BRANCH=${INPUT_SMALLTALKCI_BRANCH:-master}
+readonly DEFAULT_SOURCE=${INPUT_SMALLTALKCI_REPO:-hpi-swa/smalltalkCI}
+
+echo "::group::Downloading and extracting smalltalkCI"
+
+curl \
+  --location "https://github.com/${DEFAULT_SOURCE}/archive/${DEFAULT_BRANCH}.tar.gz" \
+  --output /tmp/smalltalkCI.tar.gz
+tar -xzvf /tmp/smalltalkCI.tar.gz -C ${INSTALLATION_DIRECTORY} --strip-components=1
+echo "::endgroup::"
+
+echo "::group::Running smalltalkCI"
+
+readonly SMALLTALKCI_SPEC=${INPUT_SPEC:-.smalltalk.ston}
+
+"${INSTALLATION_DIRECTORY}/run.sh" \
+  -s Pharo64-10 \
+  --image /opt/pharo/Pharo.image \
+  --vm /opt/pharo/pharo-vm \
+  "${GITHUB_WORKSPACE}/${SMALLTALKCI_SPEC}"
+
+echo "::endgroup::"
+
+exit 0

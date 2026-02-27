@@ -1,0 +1,25 @@
+name: 'Pharo CI'
+description: 'Load code and run tests for Pharo'
+branding:
+  icon: 'check-square'
+  color: 'green'
+inputs:
+  smalltalkci_branch:
+    description: 'Branch of smalltalkCI to use'
+    required: false
+    default: master
+  smalltalkci_repo:
+    description: 'Git repository of smalltalkCI'
+    required: false
+    default: 'hpi-swa/smalltalkCI'
+  spec:
+    description: 'smalltalkCI load spec in STON format'
+    required: false
+    default: '.smalltalk.ston'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.smalltalkci_branch}}
+    - ${{ inputs.smalltalkci_repo}}
+    - ${{ inputs.spec }}
