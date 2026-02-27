@@ -8,8 +8,6 @@ This is a community project using the unofficial docker images available [here](
 
 Create a workflow file in your project on `.github/worfklows` using this action.
 
-For example:
-
 ```yml
 name: 'Unit Tests'
 on:
@@ -41,3 +39,15 @@ runner inside the container.
   Optional, defaults to `hpi-swa/smalltalkCI`
 - `spec` Relative path in the project structure to the smalltalkCI spec to run.
   Optional, defaults to `.smalltalk.ston`
+
+## Running the action locally
+
+```bash
+docker run --name pharo-ci --rm \
+  -v {{repo_path}}:/workspace \
+  -e GITHUB_WORKSPACE=/workspace \
+  -e INPUT_SPEC=.smalltalkci/.unit-tests.ston \
+  ghcr.io/ba-st-actions/pharo-ci:v10
+```
+
+replacing `{{repo_path}}` with the path of the repo under test in the local filesystem
