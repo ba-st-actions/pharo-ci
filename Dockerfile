@@ -1,4 +1,4 @@
-FROM ghcr.io/ba-st/pharo:v10.0.0
+FROM ghcr.io/ba-st/pharo-loader:v10.0.1
 USER root
 RUN  apt update \
   && apt upgrade --assume-yes \
